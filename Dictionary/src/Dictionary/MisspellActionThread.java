@@ -136,10 +136,15 @@ public class MisspellActionThread implements Runnable {
      */
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
-
+        String w = word.trim();
         // ADD CODE HERE    
-
-        
+        if (theDictionary.contains(w)){
+            
+            result = true;
+        }
+        else{
+            result = false;
+        }
         
 
         return result;
