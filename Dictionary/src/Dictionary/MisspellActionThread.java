@@ -51,13 +51,6 @@ public class MisspellActionThread implements Runnable {
         });
         
         // ADD CODE HERE TO CALL checkWords
-        myLines.addWordlet(new Wordlet("abc", true));
-        showLines(myLines);
-        myLines.nextLine();
-        
-        myLines.addWordlet(new Wordlet("def", false));
-        showLines(myLines);
-        myLines.nextLine();
 
 
         checkWords(textFileName,myDictionary);
@@ -108,12 +101,14 @@ public class MisspellActionThread implements Runnable {
 
             input = new Scanner(new File(theFileName));
             // ADD CODE HERE    
+            String OPERATORS = "\":?;!)([, .]\"";
             
             while (input.hasNextLine()) {
                 inString = input.nextLine();
-                StringTokenizer st = new StringTokenizer (inString);
+                StringTokenizer st = new StringTokenizer (inString, OPERATORS ,true);
                 while (st.hasMoreTokens()){
-                    aWord = st.nextToken()+ " ";
+                     
+                    aWord = st.nextToken();
                     myLines.addWordlet(new Wordlet(aWord, checkWord(aWord,theDictionary)));
                 }
                 
@@ -135,10 +130,13 @@ public class MisspellActionThread implements Runnable {
      *
      */
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
-        boolean result = false;
+        boolean result;
         String w = word.trim();
         // ADD CODE HERE    
-        if (theDictionary.contains(w)){
+        if(word.equals(",")||word.equals(".")||word.equals(":")||word.equals(";")||word.equals("?")||word.equals("!")||word.equals("(")||word.equals(")")||word.equals("\"")){
+            result = true;
+        }
+        else if (theDictionary.contains(w)){
             
             result = true;
         }
