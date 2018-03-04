@@ -19,31 +19,22 @@ public class LinesToDisplay {
     public LinesToDisplay() {
         //ADD CODE FOR THE CONSTRUCTOR
         lines = (AList<Wordlet>[]) new AList[LINES + 1];
-        for(int i = 1; i <LINES+1;i++){
+        for(int i = 0; i <LINES+1; i++){
             lines[i] = new AList<>();
         }
         currentLine = 1;
     }
 
-    /**
-     * Add a new wordlet to the current line.
-     *
-     */
     public void addWordlet(Wordlet w) {
         //ADD CODE HERE TO ADD A WORDLET TO THE CURRENT LINE
         lines[currentLine].add(w);
         
     }
-
-    /**
-     * Go to the next line, if the number of lines has exceeded LINES, shift
-     * them all up by one
-     *
-     */
     public void nextLine() {
         //ADD CODE TO HANDLE THE NEXT LINE
         if (currentLine == LINES) {
-            for (int i = 1; i < LINES; i++) {
+            
+            for (int i = 0; i < LINES; i++) {
                 lines[i] = lines[i + 1];
             }
             lines[10] = new AList<>();

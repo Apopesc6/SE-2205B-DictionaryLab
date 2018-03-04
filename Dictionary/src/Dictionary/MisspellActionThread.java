@@ -52,13 +52,15 @@ public class MisspellActionThread implements Runnable {
         
         // ADD CODE HERE TO CALL checkWords
         myLines.addWordlet(new Wordlet("abc", true));
-        myLines.nextLine();
         showLines(myLines);
+        myLines.nextLine();
+        
         myLines.addWordlet(new Wordlet("def", false));
         showLines(myLines);
         myLines.nextLine();
 
-        //checkWords(textFileName,myDictionary);
+
+        checkWords(textFileName,myDictionary);
     }
 
     /**
@@ -106,12 +108,16 @@ public class MisspellActionThread implements Runnable {
 
             input = new Scanner(new File(theFileName));
             // ADD CODE HERE    
-            while (input.hasNext()) {
-                inString = input.next();
-                aWord = inString;
-                theDictionary.add(inString, aWord);
-                myLines.addWordlet(new Wordlet(aWord, checkWord(aWord,theDictionary)));
-                //myLines.nextLine();
+            
+            while (input.hasNextLine()) {
+                inString = input.nextLine();
+                StringTokenizer st = new StringTokenizer (inString);
+                while (st.hasMoreTokens()){
+                    aWord = st.nextToken()+ " ";
+                    myLines.addWordlet(new Wordlet(aWord, checkWord(aWord,theDictionary)));
+                }
+                
+                myLines.nextLine();
                 showLines(myLines);
             }
             input.close();
