@@ -41,7 +41,7 @@ public class MisspellActionThread implements Runnable {
 
         // ADD CODE HERE TO LOAD DICTIONARY
 
-
+        loadDictionary(dictionaryFileName,myDictionary);
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
                controller.SetMsg("The Dictionary has been loaded"); 
@@ -51,8 +51,14 @@ public class MisspellActionThread implements Runnable {
         });
         
         // ADD CODE HERE TO CALL checkWords
-        
+        myLines.addWordlet(new Wordlet("abc", true));
+        myLines.nextLine();
+        showLines(myLines);
+        myLines.addWordlet(new Wordlet("def", false));
+        showLines(myLines);
+        myLines.nextLine();
 
+        //checkWords(textFileName,myDictionary);
     }
 
     /**
@@ -69,9 +75,15 @@ public class MisspellActionThread implements Runnable {
             String correctWord;
 
             input = new Scanner(new File(theFileName));
-
+            
             // ADD CODE HERE TO READ WORDS INTO THE DICTIONARY     
-
+            while(input.hasNext()){
+                inString = input.next();
+                correctWord = inString;
+                theDictionary.add (inString,correctWord);
+            }
+            input.close();
+            dictionaryLoaded = true;
             
             
         } catch (IOException e) {
@@ -94,7 +106,15 @@ public class MisspellActionThread implements Runnable {
 
             input = new Scanner(new File(theFileName));
             // ADD CODE HERE    
-
+            while (input.hasNext()) {
+                inString = input.next();
+                aWord = inString;
+                theDictionary.add(inString, aWord);
+                myLines.addWordlet(new Wordlet(aWord, checkWord(aWord,theDictionary)));
+                //myLines.nextLine();
+                showLines(myLines);
+            }
+            input.close();
             
             
         } catch (IOException e) {
